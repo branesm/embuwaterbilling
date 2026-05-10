@@ -1,0 +1,82 @@
+﻿<div class="content" style="margin-left: 1%" ng-controller="ctrl_allocateDevice as ctrl" ng-init="ctrl.GetDeviceAllocations(); ctrl.GetAvailableDevices()">
+
+    <div id="modDiv" style="display:none">
+        <div class="resize panel panel-flat col-lg-8" style="overflow: hidden">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color:black;"><b>Modify Device Allocation</b></h4>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal col-lg-12" name="modifyForm">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!-- Employee ID -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Employee ID</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" id="password" ng-model="ctrl.allocation.emp_id" autocomplete="off" ng-disabled="true">
+                                        </div>
+                                    </div>
+
+                                    <!-- Employee Current Device -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Employee Current Device</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" id="password" ng-model="ctrl.allocation.current_device" autocomplete="off" ng-disabled="true">
+                                        </div>
+                                    </div>
+
+                                    <!-- Device Dropdown -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Allocate New Device</label>
+                                        <div class="col-lg-4">
+                                            <select name="select" class="form-control" ng-model="ctrl.allocation.deviceTag">
+                                                <option ng-repeat="device in ctrl.Devices" value="{{device.DeviceTag}}">
+                                                    {{device.DeviceTag}} {{device.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="text-center col-lg-12">
+                                        <button type="button" class="btn btn-info" ng-disabled="modifyForm.$invalid" ng-click="modifyForm.$valid && ctrl.UpdateDeviceAllocation()">Modify<i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                        <button type="button" class="btn btn-info" ng-disabled="modifyForm.$invalid" ng-click="ctrl.Deallocate()">Dellallocate<i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                        <button type="button" class="btn btn-danger" ng-click="ctrl.HideModify()">Cancel <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                    </div>
+
+                                </div>
+                                </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="resize panel panel-flat col-lg-12" style="overflow: auto">
+        <div class="panel-body">
+            <h4><b>Device Allocations</b></h4>
+            <table id="deviceAllocations" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>Employee ID</td>
+                        <td>Employee Name</td>
+                        <td>Device Name</td>
+                        <td>Device Tag</td>
+                        <td></td>
+
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+

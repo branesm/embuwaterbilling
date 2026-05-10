@@ -1,0 +1,128 @@
+﻿<div class="content" style="margin-left: 1%" ng-controller="ctrl_manageEmployees as ctrl" 
+     ng-init="ctrl.GetDbIdentifiers();ctrl.GetActiveEmployees();ctrl.GetAvailableDevices()">
+
+    <h6 class="content-group text-semibold col-lg-12">
+        <button type="button" class="btn btn-info" ng-click="ctrl.ShowRegisterEmployee()">Register Employee<i class="glyphicon glyphicon-plus position-right"></i></button>
+    </h6>
+
+   
+
+    <!-- Register Employees Div -->
+    <div id="registerDiv" style="display:none">
+        <div class="resize panel panel-flat col-lg-8" style="overflow: auto">
+            <div class="panel-heading">
+                <h4 class="panel-title" style="color:black;" id="employeeheader"><b>Register Employee</b></h4>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-horizontal col-lg-12" name="registerForm">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <!-- Database -->
+                                    <div class="form-group" id="databases">
+                                        <label class="control-label col-lg-4" style="color:black;">Database</label>
+                                        <div class="col-lg-4">
+                                            <select name="select" class="form-control" ng-model="ctrl.employee.dbName" ng-required="true"
+                                                    ng-change="ctrl.getmajicsTechnicians(ctrl.employee.dbName)">
+                                                <option ng-repeat="database in ctrl.DbIdentifiers" value="{{database.DbActualName}}">
+                                                    {{database.DbVisualName}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <span style="color: red;"> * </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Technicians Dropdown -->
+                                    <div class="form-group" id="mjicstechnicians">
+                                        <label class="control-label col-lg-4" style="color:black;">Technicians</label>
+                                        <div class="col-lg-4">
+                                            <select name="select" class="form-control" ng-model="ctrl.employee.majicsemployee" ng-required="true"
+                                                    ng-options="item.EmpID + ' ' + item.EmpName for item in ctrl.Majicstechnicians"></select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <span style="color: red;"> * </span>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Password -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Password</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" ng-model="ctrl.employee.emp_password" autocomplete="off" ng-required="true">
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <span style="color: red;"> * </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Email</label>
+                                        <div class="col-lg-4">
+                                            <input type="text" class="form-control" ng-model="ctrl.employee.emp_email" autocomplete="off">
+                                        </div>
+                                    </div>
+
+                                    <!-- Devices Dropdown -->
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Device</label>
+                                        <div class="col-lg-4">
+                                            <select name="select" class="form-control" ng-model="ctrl.employee.deviceTag" id="employeeedevice" ng-required="true">
+                                                <option value="" selected>Select Option</option>
+                                                <option ng-repeat="device in ctrl.Devices" value="{{device.DeviceTag}}">
+                                                    {{device.DeviceTag}} {{device.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <span style="color: red;"> * </span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Buttons -->
+                                    <div class="text-center col-lg-12">
+                                        <button type="button" id="registeremployee" class="btn btn-info" ng-click="ctrl.RegisterEmployee()">Register<i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                        <button type="button" id="updateemployee" class="btn btn-info" ng-click="ctrl.updateEmployee()">Update<i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                        <button type="button" class="btn btn-danger" ng-disabled="registerForm.$pristine" ng-click="ctrl.ClearEmployeeForm()">Clear <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                        <button type="button" class="btn btn-danger" ng-click="ctrl.HideRegisterEmployee()">Cancel <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employees Table -->
+    <div class="resize panel panel-flat col-lg-12" style="overflow:auto;">
+        <div class="panel-body">
+            <h4><b>Active Employees</b></h4>
+            <table id="activeEmployeeTable" class="display" style="width:100%;">
+                <thead>
+                    <tr>
+                        <td>Employee ID</td>
+                        <td>Employee Name</td>
+                        <td>Employee Phone Number</td>
+                        <td>Employee Email</td>
+                        <td>Employee Status</td>
+                        <td>Device Tag</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+-- Payments table - All payments
+CREATE TABLE IF NOT EXISTS payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    payment_number VARCHAR(30) UNIQUE NOT NULL,
+    customer_id INT NOT NULL,
+    bill_id INT,
+    amount DECIMAL(12, 2) NOT NULL,
+    payment_method ENUM('cash', 'bank', 'mpesa', 'cheque', 'wallet') NOT NULL,
+    payment_date DATE NOT NULL,
+    reference_number VARCHAR(100),
+    mpesa_transaction_id VARCHAR(50),
+    received_by INT,
+    notes TEXT,
+    is_reversed BOOLEAN DEFAULT FALSE,
+    reversed_at TIMESTAMP NULL,
+    reversed_by INT,
+    reversal_reason TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
+    FOREIGN KEY (bill_id) REFERENCES bills(id) ON DELETE SET NULL,
+    FOREIGN KEY (received_by) REFERENCES users(id) ON DELETE SET NULL,
+    FOREIGN KEY (reversed_by) REFERENCES users(id) ON DELETE SET NULL,
+    INDEX idx_payment_number (payment_number),
+    INDEX idx_customer (customer_id),
+    INDEX idx_bill (bill_id),
+    INDEX idx_date (payment_date),
+    INDEX idx_method (payment_method),
+    INDEX idx_mpesa (mpesa_transaction_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Payment allocations table - Track how payments are applied to bills (FIFO)
+CREATE TABLE IF NOT EXISTS payment_allocations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    payment_id INT NOT NULL,
+    bill_id INT NOT NULL,
+    amount_allocated DECIMAL(12, 2) NOT NULL,
+    allocated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (payment_id) REFERENCES payments(id) ON DELETE CASCADE,
+    FOREIGN KEY (bill_id) REFERENCES bills(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_allocation (payment_id, bill_id),
+    INDEX idx_payment (payment_id),
+    INDEX idx_bill (bill_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- M-Pesa transactions table - Raw M-Pesa callback data
+CREATE TABLE IF NOT EXISTS mpesa_transactions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    transaction_type VARCHAR(20) NOT NULL,
+    trans_id VARCHAR(50) UNIQUE NOT NULL,
+    trans_time VARCHAR(20),
+    trans_amount DECIMAL(12, 2),
+    business_shortcode VARCHAR(20),
+    bill_ref_number VARCHAR(50),
+    invoice_number VARCHAR(50),
+    org_account_balance VARCHAR(20),
+    third_party_trans_id VARCHAR(50),
+    msisdn VARCHAR(20),
+    first_name VARCHAR(50),
+    middle_name VARCHAR(50),
+    last_name VARCHAR(50),
+    result_code VARCHAR(10),
+    result_desc TEXT,
+    merchant_request_id VARCHAR(100),
+    checkout_request_id VARCHAR(100),
+    status ENUM('pending', 'completed', 'failed', 'reversed') DEFAULT 'pending',
+    payment_id INT,
+    reconciled_at TIMESTAMP NULL,
+    raw_payload JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (payment_id) REFERENCES payments(id) ON DELETE SET NULL,
+    INDEX idx_trans_id (trans_id),
+    INDEX idx_bill_ref (bill_ref_number),
+    INDEX idx_status (status),
+    INDEX idx_checkout (checkout_request_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -1,0 +1,163 @@
+﻿<!DOCTYPE html>
+
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+
+
+    <!-- Global stylesheets -->
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/colors.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- Core JS files -->
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/loaders/blockui.min.js"></script>
+
+    <!-- Theme JS files -->
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/inputs/typeahead/handlebars.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/inputs/alpaca/alpaca.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/jquery_ui/widgets.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/ui/prism.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/tags/tokenfield.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/app.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/pages/alpaca_controls.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/ui/ripple.min.js"></script>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" type="text/css" href=" @Url.Content("~/Content/mytemplate/")datatables/datatables.min.css" />
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/datatables.min.js"></script>
+    <!-- pdfmake -->
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/pdfmake/pdfmake.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/pdfmake/vfs_fonts.js"></script>
+    <!-- buttons -->
+    <link rel="stylesheet" type="text/css" href=" @Url.Content("~/Content/mytemplate/")datatables/buttons/css/buttons.dataTables.min.css" />
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/buttons/js/dataTables.buttons.min.js"></script>
+    <!-- jszip-->
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/jszip/jszip.min.js"></script>
+    <!-- select -->
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/select/js/dataTables.select.min.js"></script>
+    <link rel="stylesheet" type="text/css" href=" @Url.Content("~/Content/mytemplate/")datatables/select/css/select.dataTables.min.css" />
+    <!-- responsive -->
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")datatables/responsive/js/dataTables.responsive.min.js"></script>
+    <link rel="stylesheet" type="text/css" href=" @Url.Content("~/Content/mytemplate/")datatables/responsive/css/responsive.dataTables.min.css" />
+
+    <!-- Angular -->
+    <script type="text/javascript" src="~/Scripts/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular-route.min.js"></script>
+
+    <!-- C3 charts -->
+    <link rel="stylesheet" type="text/css" href=" @Url.Content("~/Content/mytemplate/")assets/c3/c3.css" />
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")assets/c3/c3.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Content/mytemplate/")assets/d3/d3.min.js"></script>
+
+    <!-- Main JS -->
+    <script type="text/javascript" src="~/Scripts/myScript.js"></script>
+
+
+    <style>
+
+        html {
+            font: 400 16px 'Open Sans', 'Arial';
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navbar -->
+    @*<div class="navbar navbar-inverse bg-indigo">
+            <div class="navbar-collapse collapse" id="navbar-mobile">
+                <ul class="nav navbar-nav">
+                    <li><a class="sidebar-control sidebar-main-toggle hidden-xs"><i class="icon-paragraph-justify3"></i></a></li>
+                </ul>
+                <div class="navbar-right">
+                    <p class="navbar-text">Hey, @HttpContext.Current.User.Identity.Name</p>
+                </div>
+            </div>
+        </div>*@
+    <!-- /navbar-->
+    <!-- Page Container -->
+    <div class="page-container" ng-controller="homeController">
+        <div class="page-content">
+
+            <!-- Main Sidebar -->
+            <div id="sideBar" class="sidebar sidebar-main sidebar-default">
+                <div class="sidebar-content">
+
+                    <!-- User Menu -->
+                    <div class="sidebar-user-material">
+                        <div class="category-content">
+                            <div class="sidebar-user-material-content">
+                                <h6>@HttpContext.Current.User.Identity.Name</h6>
+                            </div>
+
+                            <div class="sidebar-user-material-menu">
+                                <a href="#user-nav" data-toggle="collapse"><span>My account</span> <i class="caret"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="navigation-wrapper collapse" id="user-nav">
+                            <ul class="navigation">
+                                <li><a href="#!/ChangePassword"><i class="icon-user-lock"></i><span>Change Password</span></a></li>
+                                <li class="text-center">
+                                    @using (Html.BeginForm("Logout", "Home", FormMethod.Post))
+                                    {
+                                        <button type="submit" class="btn btn-danger"><i class="icon-switch2"></i> <span> Logout</span></button>
+                                    }
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Main Navigation Menu-->
+                    <div class="sidebar-category sidebar-category-visible">
+                        <div class="category-content no-padding">
+                            <ul class="navigation navigation-main navigation-accordion">
+
+
+                                <li><a href="#!/AddDevice"><i class="icon-phone-plus2"></i> <span>Add Device</span></a></li>
+                                <li><a href="#!/InactiveDevices"><i class="icon-phone-slash"></i> <span>Inactive Devices</span></a></li>
+                                <li><a href="#!/ManageEmployees"><i class="icon-users2"></i> <span>Manage Employees</span></a></li>
+                                <li><a href="#!/ViewInactiveEmployees"><i class="icon-user-cancel"></i> <span>View Inactive Employees</span></a></li>
+                                <li><a href="#!/AllocateDevice"><i class="icon-phone-outgoing"></i> <span>Allocate Device</span></a></li>
+                                <li><a href="#!/CompleteWorkOrders"><i class="icon-phone-outgoing"></i> <span>Work Orders</span></a></li>
+                                <li><a href="#!/ViewReports"><i class="icon-phone-outgoing"></i> <span>View Reports</span></a></li>
+
+                                <!---
+                                    <li><a href="#!/ManageTasks"><i class="icon-users2"></i> <span>Manage Tasks</span></a></li>
+                                    <li><a href="#!/AllocateTasks"><i class="icon-phone-outgoing"></i> <span>Allocate Task</span></a></li>
+                                -->
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- /main sidebar-->
+            <!-- Main Content -->
+            <div class="content-wrapper" style="background-color: #e4e6f6">
+                <div ng-view>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/3.0.0/js/bootstrap-datetimepicker.min.js"></script>
+
+
+</body>
+</html>

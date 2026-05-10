@@ -1,0 +1,15 @@
+﻿Installing assembly 'C:\SULISEA\USSDSync\CustomerBalanceSyncService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   i = 
+   assemblypath = C:\SULISEA\USSDSync\CustomerBalanceSyncService.exe
+   logfile = C:\SULISEA\USSDSync\CustomerBalanceSyncService.InstallLog
+Installing service CustomerBalanceSyncService...
+Service CustomerBalanceSyncService has been successfully installed.
+Creating EventLog source CustomerBalanceSyncService in log Application...
+Committing assembly 'C:\SULISEA\USSDSync\CustomerBalanceSyncService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   i = 
+   assemblypath = C:\SULISEA\USSDSync\CustomerBalanceSyncService.exe
+   logfile = C:\SULISEA\USSDSync\CustomerBalanceSyncService.InstallLog

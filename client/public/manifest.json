@@ -1,0 +1,17 @@
+{
+  "name": "EWASCO Field App",
+  "short_name": "EWASCO Field",
+  "description": "Field technician app for water meter readings and work orders",
+  "start_url": "/field",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/vite.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+﻿<div class="content" style="margin-left: 1%" ng-controller="ctrl_addDevice as ctrl" ng-init="ctrl.GetDevices()">
+
+    <h6 class="content-group text-semibold col-lg-12">
+        <button type="button" class="btn btn-info" ng-click="ctrl.ShowAddDevice()">Add Device<i class="glyphicon glyphicon-plus position-right"></i></button>
+    </h6>
+    
+    <!-- Add Device Form -->
+    <div id="addDevice" class="resize panel panel-flat col-lg-8" style="overflow: hidden; display:none">
+        <div class="panel-heading">
+            <h4 class="panel-title" style="color:black;">
+                <b>Add Device</b>
+            </h4>
+        </div>
+
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-12" name="addDeviceForm" ng-submit="ctrl.CreateDevice()">
+                <div class="form-group">
+                    <div class="col-lg-12">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <!-- Name -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Model</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" ng-model="ctrl.device.name" autocomplete="off" required>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <span style="color: red;"> * </span>
+                                    </div>
+                                </div>
+
+                                <!-- Device IMEI -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Device IMEI Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" required restrict-input="^[0-9-]*$" class="form-control" ng-model="ctrl.device.deviceImei" autocomplete="off" ng-minlength="15" ng-maxlength="15">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <span style="color: red;"> * </span>
+                                    </div>
+                                </div>
+
+                                <input type="text" class="form-control" ng-model="ctrl.device.DeviceTag" style="display:none;">
+                                <input type="text" class="form-control" ng-model="ctrl.device.PhoneNumber" style="display:none;">
+
+
+
+                                <!-- Serial Number -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Device Serial Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" required class="form-control" ng-model="ctrl.device.serialNumber" autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="text-center col-lg-12">
+                                    <button type="submit" class="btn btn-info">Create<i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                    <button type="button" class="btn btn-danger" ng-disabled="addDeviceForm.$pristine" ng-click="ctrl.ClearAddDeviceForm()">Clear <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                    <button type="button" class="btn btn-danger" ng-click="ctrl.HideAddDevice()">Cancel <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Device Form -->
+    <div id="editDevice" class="resize panel panel-flat col-lg-8" style="overflow: hidden; display:none">
+        <div class="panel-heading">
+            <h6 class="panel-title" style="color:black;">
+                Edit Device
+            </h6>
+        </div>
+
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-12" name="editDeviceForm">
+                <div class="form-group">
+                    <div class="col-lg-12">
+
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <!-- Name -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Model</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" ng-model="ctrl.device.name" autocomplete="off" ng-required="true">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <span style="color: red;"> * </span>
+                                    </div>
+                                </div>
+
+                                <!-- Serial Number -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Device Serial Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control" ng-model="ctrl.device.serialNumber" autocomplete="off" ng-required="false">
+                                    </div>
+                                </div>
+
+                                <!-- Device IMEI -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Device IMEI Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" required class="form-control" ng-model="ctrl.device.deviceImei" autocomplete="off" ng-minlength="15" ng-maxlength="15">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <span style="color: red;"> * </span>
+                                    </div>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4" style="color:black;">Phone Number</label>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" ng-minlength="10" ng-maxlength="10" ng-model="ctrl.device.phoneNumber" autocomplete="off" ng-required="false">
+                                    </div>
+                                </div>
+
+                                <!-- Buttons -->
+                                <div class="text-center col-lg-12">
+                                    <button type="button" class="btn btn-info" ng-disabled="editDeviceForm.$invalid" ng-click="editDeviceForm.$valid && ctrl.Modify()">Edit<i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                    <button type="button" class="btn btn-danger" ng-disabled="editDeviceForm.$pristine" ng-click="ctrl.ClearEditDeviceForm()">Clear <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                    <button type="button" class="btn btn-danger" ng-click="ctrl.HideEditDevice()">Cancel <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Device Table -->
+    <div class="resize panel panel-flat col-lg-12" style="overflow: auto">
+        <div class="panel-body">
+            <h4><b>Devices</b></h4>
+            <table id="deviceTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <td>Name</td>
+                        <td>Serial Number</td>
+                        <td>Device Tag</td>
+                        <td>Phone Number</td>
+                        <td>Status</td>
+                        <td>Device IMEI</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </div>
+
+</div>

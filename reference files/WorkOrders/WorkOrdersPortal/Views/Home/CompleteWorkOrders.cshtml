@@ -1,0 +1,99 @@
+﻿<div class="content" style="margin-left: 1%" ng-controller="ctrl_manageTasks as ctrl" ng-init="ctrl.getcompleteworkOrders();ctrl.GetEmployees();">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+
+
+            <div class="col-lg-3" style="background-color: white;padding: 10px;">
+                <div class="form-group">
+                    <label class="control-label col-lg-3" style="color:black;margin-top: 9px;">Technician</label>
+                    <div class="col-lg-9">
+                        <select name="select" class="form-control" ng-model="ctrl.filterorders.employee">
+                            <option value="">Select Option</option>
+                            <option ng-repeat="item in ctrl.Employees" value="{{item.Emp_ID}}">
+                                {{item.Emp_ID}} {{item.Emp_Name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-3" style="background-color: white;padding: 10px;">
+                <div class='input-group date datetimepicker1'>
+                    <input type='text' class="form-control" id="fromdate" placeholder="From Date" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-3" style="background-color: white;padding: 10px;">
+                <div class='input-group date datetimepicker1'>
+                    <input type='text' class="form-control" id="todate" placeholder="To Date" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-2">
+                <h6 class="content-group text-semibold col-lg-12">
+                    <button type="button" class="btn btn-info" id="btnvieworkorders" ng-click="ctrl.filtercompleteWorkOrders()">View Workorders<i class="glyphicon glyphicon-plus position-right"></i></button>
+                </h6>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Employees Table -->
+    <div class="resize panel panel-flat col-lg-9" style="overflow:auto;">
+        <div class="panel-body">
+            <h4><b>Work Orders</b></h4>
+            <table id="taskstable" class="display" style="width:100%;">
+                <thead>
+                    <tr>
+                        <td>Order No.</td>
+                        <td>Status</td>
+                        <td>Time</td>
+                        <td>Reading</td>
+                        <td>Technician</td>
+                        <td>Comment</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div class="resize panel panel-flat col-lg-3" style="overflow:auto;" id="showphotodiv">
+        <div class="panel-body">
+            <img src="" id="photo" />
+        </div>
+    </div>
+
+
+
+</div>
+
+<script type="text/javascript">
+        //var j = jQuery.noConflict();
+        var j = jQuery;
+        j(function () {
+            j('.datetimepicker1').datetimepicker({
+                format: 'L',
+                format: 'DD-MM-YYYY',
+                disabledHours: true,
+                autoclose: true,
+            });
+        });
+
+
+        setInterval(function () {
+            //$("#btnvieworkorders").trigger('click');
+            //location.reload();
+        }, 20000);
+
+</script>

@@ -1,0 +1,124 @@
+﻿@model WorkOrdersPortal.Admin
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <!-- Global stylesheets -->
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/core.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/components.css" rel="stylesheet" type="text/css">
+    <link href=" @Url.Content("~/Content/mytemplate/")assets/css/colors.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.css">
+    <!-- /global stylesheets -->
+    <!-- Core JS files -->
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/loaders/pace.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/jquery.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/bootstrap.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/inputs/typeahead/handlebars.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/inputs/alpaca/alpaca.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/jquery_ui/interactions.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/libraries/jquery_ui/widgets.min.js"></script>
+
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/ui/prism.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/styling/uniform.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/forms/tags/tokenfield.min.js"></script>
+
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/core/app.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/pages/alpaca_controls.js"></script>
+    <script type="text/javascript" src=" @Url.Content("~/Content/mytemplate/")assets/js/plugins/ui/ripple.min.js"></script>
+
+    <script type="text/javascript" src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/angular.min.js"></script>
+
+</head>
+
+<body style="background-color: #e4e6f6">
+    <div class="navbar navbar-inverse bg-indigo">
+
+        <h4 style="text-align:center">Welcome</h4>
+
+    </div>
+
+    <div style="padding-top: 10%;">
+        <div class="content">
+
+            <div class="panel panel-flat col-lg-6 col-lg-offset-3">
+                <h1 class="content-group text-center" style="font-weight:bold;">
+                    LOG IN
+                </h1>
+
+                <div class="panel-body">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-horizontal col-lg-12" }))
+                    {
+
+                        <div class="form-group">
+                            <div class="col-lg-12">
+
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <!-- Name -->
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-4" style="color:black; font-size:15px;"><i class="glyphicon glyphicon-user position-left"></i><span>Username:</span></label>
+                                            <div class="col-lg-4">
+                                                @Html.TextBoxFor(m => m.AdminName, new { @class = "form-control", @autocomplete = "off" })
+                                            </div>
+                                            <div class="col-lg-4">
+                                                @Html.ValidationMessageFor(m => m.AdminName, "", new { @class = "error" })
+                                            </div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="form-group">
+                                            <label class="control-label col-lg-4" style="color:black; font-size:15px;"><i class="glyphicon glyphicon-lock position-left"></i><span>Password:</span></label>
+                                            <div class="col-lg-4">
+                                                @Html.PasswordFor(m => m.AdminPass, new { @class = "form-control", @autocomplete = "off" })
+                                            </div>
+                                            <div class="col-lg-4">
+                                                @Html.ValidationMessageFor(m => m.AdminPass, "", new { @class = "error" })
+                                            </div>
+                                        </div>
+
+                                        <br />
+
+                                        <!-- Button -->
+                                        <div class="text-center">
+                                            <input type="submit" class="btn btn-success" value="LogIn" />
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                    @if (@ViewBag.Message != null)
+                    {
+                        <script type="text/javascript">
+                            $(function () {
+                                alert("@ViewBag.Message")
+                            });
+                        </script>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>
+
+

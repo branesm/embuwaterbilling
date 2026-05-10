@@ -1,0 +1,196 @@
+﻿<div class="content" style="margin-left: 1%" ng-controller="ctrl_viewReports as ctrl" ng-init="ctrl.GetEmployees();ctrl.GetRPTCategories()">
+    <h6 class="content-group text-semibold">
+        View Reports
+    </h6>
+
+    <!-- Form with dropdown of routes with captured readings -->
+    <div class="resize panel panel-flat col-lg-12" style="overflow: auto">
+        <div class="panel-body">
+            <form class="form-horizontal col-lg-12" name="readingsForm">
+                <div class="form-group">
+                    <div class="col-lg-12">
+
+                        <div class="row">
+                            <div class="col-lg-8">
+
+                                <!-- Zone Dropdown -->
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Employee</label>
+                                        <div class="col-lg-8">
+                                            <select name="select" class="form-control" ng-model="ctrl.getrpt.emp_id" ng-required="true">
+                                                <option selected></option>
+                                                <option ng-repeat="emp in ctrl.Employees" value="{{emp.Emp_ID}}">
+                                                    {{emp.Emp_ID}} {{emp.Emp_Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label class="control-label col-lg-4" style="color:black;">Codes</label>
+                                        <div class="col-lg-8">
+                                            <select name="select" class="form-control" ng-model="ctrl.getrpt.rptcode" ng-required="true">
+                                                <option selected></option>
+                                                <option ng-repeat="codes in ctrl.rptcodes" value="{{codes.ReadingCode}}">
+                                                    {{codes.ReadingCodeDefn}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3" style="background-color: white;padding: 10px;">
+                                    <label class="control-label col-lg-4" style="color:black;">From </label>
+                                    <div class='input-group date datetimepicker1'>
+                                        <input type='text' class="form-control" id="fromdate" placeholder="From Date" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3" style="background-color: white;padding: 10px;">
+                                    <label class="control-label col-lg-4" style="color:black;"> To </label>
+                                    <div class='input-group date datetimepicker1'>
+                                        <input type='text' class="form-control" id="todate" placeholder="To Date" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </div>
+
+
+                                <!-- Buttons -->
+                                <div class="text-center col-lg-12">
+                                    <button type="button" class="btn btn-info" ng-click="ctrl.GetReports(ctrl.getrpt.emp_id,ctrl.getrpt.rptcode);ctrl.ShowReadingsDiv()">Get Report <i class="glyphicon glyphicon-refresh position-right"></i></button>
+                                    <button type="button" class="btn btn-danger" ng-disabled="readingsForm.$pristine" ng-click="ctrl.ClearReadingsForm()">Clear <i class="glyphicon glyphicon-remove position-right"></i></button>
+                                </div>
+
+                            </div>
+
+
+                            <div id="detailedReading" style="display:none;overflow:auto;">
+                                <h5 style="text-align:center"><b></b></h5>
+
+                                <img class="rowValue" id="photo" style="height: 151px;width: 150px;margin-left:100px;margin-top: -46px;" />
+
+                                <div class="rowHeader" id="mapLink" style="text-align:center; padding-top: -1px; font-size:18px;margin-left: 263px;margin-top: -75px;"> View Map </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="col-lg-12" style="zoom:80%">
+        <div id="readingsDiv" class="panel panel-flat col-lg-" style="display:none; overflow:auto; height:950px;">
+            <div class="panel-body">
+                <h4><b>Captured Readings</b></h4>
+                <table id="capturedReadingsTable" class="display" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Technician</td>
+                            <td>Phone</td>
+                            <td>Date</td>
+                            <td>Code</td>
+                            <td>Serial</td>
+                            <td>Account No.</td>
+                            <td>Reading</td>
+                            <td>Comments</td>
+                        </tr>
+                    </thead>
+
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="imageModal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 id="customerPhotoName" class="modal-title" style="text-align:center;">
+                        Customer Name
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="imageButtons" style="text-align:center; padding-bottom:30px">
+                        <button class="btn btn-info" id="rotate">Rotate <i class="glyphicon glyphicon-refresh position-right" /></button>
+                        <button class="btn btn-info" id="zoomIn">Zoom In <i class="glyphicon glyphicon-zoom-in position-right" /></button>
+                        <button class="btn btn-info" id="zoomOut">Zoom Out<i class="glyphicon glyphicon-zoom-out position-right" /></button>
+                    </div>
+                    <img style="display:block; margin-left: auto; margin-right: auto;" class="north" id="modalImage" src="" />
+                    <p>
+                        <h5 style="text-align:center" id="photoCurrentReading"></h5>
+                    </p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .north {
+        transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+    }
+
+    .west {
+        transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+    }
+
+    .south {
+        transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+    }
+
+    .east {
+        transform: rotate(270deg);
+        -ms-transform: rotate(270deg);
+        -webkit-transform: rotate(270deg);
+    }
+
+    .readingsGrid {
+        display: grid;
+        grid-template-columns: 150px auto;
+    }
+
+    .rowValue, .rowHeader {
+        padding: 10px;
+    }
+
+    .rowHeader {
+        font-weight: bold;
+    }
+</style>
+
+<script type="text/javascript">
+        //var j = jQuery.noConflict();
+        var j = jQuery;
+        j(function () {
+            j('.datetimepicker1').datetimepicker({
+                format: 'L',
+                format: 'DD-MM-YYYY',
+                disabledHours: true,
+                autoclose: true
+            });
+        });
+</script>

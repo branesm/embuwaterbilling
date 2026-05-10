@@ -1,0 +1,15 @@
+﻿Installing assembly 'C:\SULISEA\WorkOrders\WorkOrdersService\WorkOrdersService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   i = 
+   assemblypath = C:\SULISEA\WorkOrders\WorkOrdersService\WorkOrdersService.exe
+   logfile = C:\SULISEA\WorkOrders\WorkOrdersService\WorkOrdersService.InstallLog
+Installing service WorkOrdersService...
+Service WorkOrdersService has been successfully installed.
+Creating EventLog source WorkOrdersService in log Application...
+Committing assembly 'C:\SULISEA\WorkOrders\WorkOrdersService\WorkOrdersService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   i = 
+   assemblypath = C:\SULISEA\WorkOrders\WorkOrdersService\WorkOrdersService.exe
+   logfile = C:\SULISEA\WorkOrders\WorkOrdersService\WorkOrdersService.InstallLog

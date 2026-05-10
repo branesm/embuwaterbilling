@@ -1,0 +1,52 @@
+-- Bills table - Generated bills
+CREATE TABLE IF NOT EXISTS bills (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bill_number VARCHAR(30) UNIQUE NOT NULL,
+    customer_id INT NOT NULL,
+    meter_id INT NOT NULL,
+    reading_id INT,
+    billing_period VARCHAR(20) NOT NULL,
+    bill_date DATE NOT NULL,
+    due_date DATE NOT NULL,
+    previous_balance DECIMAL(12, 2) DEFAULT 0.00,
+    water_charge DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    sewerage_charge DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    standing_charge DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    meter_rent DECIMAL(12, 2) DEFAULT 0.00,
+    adjustments DECIMAL(12, 2) DEFAULT 0.00,
+    penalties DECIMAL(12, 2) DEFAULT 0.00,
+    total_amount DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    amount_paid DECIMAL(12, 2) DEFAULT 0.00,
+    balance DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    status ENUM('unpaid', 'partial', 'paid', 'overdue', 'cancelled') DEFAULT 'unpaid',
+    consumption_units DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    generated_by INT,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE,
+    FOREIGN KEY (meter_id) REFERENCES meters(id) ON DELETE CASCADE,
+    FOREIGN KEY (reading_id) REFERENCES meter_readings(id) ON DELETE SET NULL,
+    FOREIGN KEY (generated_by) REFERENCES users(id) ON DELETE SET NULL,
+    INDEX idx_bill_number (bill_number),
+    INDEX idx_customer (customer_id),
+    INDEX idx_period (billing_period),
+    INDEX idx_status (status),
+    INDEX idx_due_date (due_date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Bill items table - Line items per bill
+CREATE TABLE IF NOT EXISTS bill_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    bill_id INT NOT NULL,
+    item_type ENUM('water_tier', 'sewerage', 'standing_charge', 'meter_rent', 'adjustment', 'penalty', 'arrears') NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    quantity DECIMAL(10, 2) DEFAULT 1.00,
+    unit_price DECIMAL(12, 4) DEFAULT 0.0000,
+    amount DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    tier_order INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (bill_id) REFERENCES bills(id) ON DELETE CASCADE,
+    INDEX idx_bill (bill_id),
+    INDEX idx_type (item_type)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
